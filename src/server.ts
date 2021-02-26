@@ -1,7 +1,11 @@
+//importanto o reflect-metadata
+import "reflect-metadata";
+
 //importando o express
 import express from 'express';
-
+import "./database";
 const app= express();
+
 
 // htttp://localhost:3334/users
 app.get("/", (request, response) => {
