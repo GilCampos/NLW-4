@@ -17,7 +17,9 @@ class SendMailController {
         const surveysUsersRepository = getCustomRepository(SurveysUsersRepository);
 
         //verificar se o email existe
-        const user = await usersRepository.findOne({email});
+        const user = await usersRepository.findOne({
+            email
+        });
 
         if(!user){
             return response.status(400).json({
@@ -25,7 +27,9 @@ class SendMailController {
             });
         }
 
-        const survey = await surveysRepository.findOne({id: survey_id})
+        const survey = await surveysRepository.findOne({
+            id: survey_id
+        })
 
         if(!survey) {
             return response.status(400).json({
@@ -44,7 +48,7 @@ class SendMailController {
             name: user.name,
             title: survey.title,
             description: survey.description,
-            id: surveyUserAlreadyExists.id,
+            id: "",
             link: process.env.URL_MAIL,
         };
 
@@ -53,8 +57,6 @@ class SendMailController {
             await SendMailService.execute(email, survey.title, variables, npsPath);
             return response.json(surveyUserAlreadyExists);
         }
-
-
 
         //salvar as informações da tabela surveyUser
         const surveyUser = surveysUsersRepository.create({
@@ -68,7 +70,9 @@ class SendMailController {
                 
          //Enviar e-mail par o usuario
         await SendMailService.execute(email,survey.title, variables, npsPath);
-        return response.json(surveyUser);        
+
+        return response.json(surveyUser);      
+        
     }
 }
 export { SendMailController }
