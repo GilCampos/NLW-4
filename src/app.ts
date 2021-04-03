@@ -2,6 +2,7 @@
 import "reflect-metadata";
 //importando o express
 import express, { NextFunction, Request, Response } from 'express';
+import "express-async-errors";
 //import "./database";
 import createConnection from "./database";
 import { router } from "./routes";
